@@ -39,9 +39,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\ChannelGroup.cs" />
     <Compile Include="Entities\MediaItem.cs" />
     <Compile Include="Factories\ChannelFactory.cs" />
     <Compile Include="Entities\Channel.cs" />
+    <Compile Include="Factories\ChannelGroupFactory.cs" />
     <Compile Include="Factories\MediaItemFactory.cs" />
     <Compile Include="IMediaGuideRepository.cs" />
     <Compile Include="MediaGuideRepository.cs" />
