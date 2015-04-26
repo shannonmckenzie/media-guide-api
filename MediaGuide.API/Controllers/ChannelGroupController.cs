@@ -10,7 +10,7 @@ using MediaGuide.Repository;
 
 namespace MediaGuide.API.Controllers
 {
-    public class ChannelGroupController
+    public class ChannelGroupController: ApiController
     {
     }
 }
