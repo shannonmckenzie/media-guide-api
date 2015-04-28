@@ -8,8 +8,10 @@ namespace MediaGuide.Repository.Entities
 {
     public class Channel
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public Int32 Id { get; set; }
+        public String Name { get; set; }
+        public String Description { get; set; }
+        public String Type { get; set; }
+        public String User { get; set; }
     }
 }
