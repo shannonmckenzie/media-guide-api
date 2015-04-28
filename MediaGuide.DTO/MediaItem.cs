@@ -9,9 +9,10 @@ namespace MediaGuide.DTO
 {
     public class MediaItem
     {
-        public int Id { get; set; }
-        public string Type { get; set; }
-        public string Description { get; set; }
-        public DateTime DateOfPurchase { get; set; }
+        public Int32 Id { get; set; }
+        public Int32 Channel_Id { get; set; }
+        public String Name { get; set; }
+        public String Description { get; set; }
+        public String Url { get; set; }
     }
 }

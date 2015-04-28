@@ -15,7 +15,9 @@ namespace MediaGuide.Repository
             {
                 Id = channel.Id,
                 Name = channel.Name,
-                Description = channel.Description
+                Description = channel.Description,
+                Type = channel.Type,
+                User = channel.User
             };
         }
 
@@ -25,7 +27,9 @@ namespace MediaGuide.Repository
             {
                 Id = channel.Id,
                 Name = channel.Name,
-                Description = channel.Description
+                Description = channel.Description,
+                Type = channel.Type,
+                User = channel.User
             };
         }
     }
