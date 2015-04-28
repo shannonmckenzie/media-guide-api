@@ -15,7 +15,8 @@ namespace MediaGuide.Repository.Factories
             {
                 Id = channelGroup.Id,
                 Name = channelGroup.Name,
-                Description = channelGroup.Description
+                Description = channelGroup.Description,
+                UserId = channelGroup.UserId
             };
         }
 
@@ -25,7 +26,8 @@ namespace MediaGuide.Repository.Factories
             {
                 Id = channelGroup.Id,
                 Name = channelGroup.Name,
-                Description = channelGroup.Description
+                Description = channelGroup.Description,
+                UserId = channelGroup.UserId
             };
         }
     }
