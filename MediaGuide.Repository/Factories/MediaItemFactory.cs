@@ -15,8 +15,9 @@ namespace MediaGuide.Repository.Factories
             {
                 Id = mediaItem.Id,
                 Description = mediaItem.Description,
-                DateOfPurchase = mediaItem.DateOfPurchase,
-                Type = mediaItem.Type
+                Channel_Id = mediaItem.Channel_Id,
+                Name = mediaItem.Name,
+                Url = mediaItem.Url
             };
         }
 
@@ -26,8 +27,9 @@ namespace MediaGuide.Repository.Factories
             {
                 Id = mediaItem.Id,
                 Description = mediaItem.Description,
-                DateOfPurchase = mediaItem.DateOfPurchase,
-                Type = mediaItem.Type
+                Channel_Id = mediaItem.Channel_Id,
+                Name = mediaItem.Name,
+                Url = mediaItem.Url
             };
         }
     }
