@@ -15,5 +15,22 @@ namespace MediaGuide.Repository
         RepositoryActionResult<Entities.Channel> InsertChannel(Entities.Channel channel);
         RepositoryActionResult<Entities.Channel> UpdateChannel(Entities.Channel channel);
 
+        IQueryable<Entities.SharedChannelGroup> GetSharedChannelGroups();
+        Entities.SharedChannelGroup GetSharedChannelGroup(int id);
+        RepositoryActionResult<Entities.SharedChannelGroup> DeleteSharedChannelGroup(Entities.SharedChannelGroup sharedChannelGroup);
+        RepositoryActionResult<Entities.SharedChannelGroup> InsertSharedChannelGroup(Entities.SharedChannelGroup sharedChannelGroup);
+        RepositoryActionResult<Entities.SharedChannelGroup> UpdateChannel(Entities.SharedChannelGroup sharedChannelGroup);
+
+        IQueryable<Entities.MediaItem> GetMediaItems();
+        Entities.MediaItem GetMediaItem(int id);
+        RepositoryActionResult<Entities.MediaItem> DeleteMediaItem(int id);
+        RepositoryActionResult<Entities.MediaItem> InsertMediaItem(Entities.MediaItem mediaItem);
+        RepositoryActionResult<Entities.MediaItem> UpdateMediaItem(Entities.MediaItem mediaItem);
+
+        IQueryable<Entities.Channel> GetChannelGroups();
+        Entities.ChannelGroup GetChannelGroup(int id);
+        RepositoryActionResult<Entities.ChannelGroup> DeleteChannelGroup(int id);
+        RepositoryActionResult<Entities.ChannelGroup> InsertChannelGroup(Entities.ChannelGroup channelGroup);
+        RepositoryActionResult<Entities.ChannelGroup> UpdateChannelGroup(Entities.ChannelGroup channelGroup);
     }
 }

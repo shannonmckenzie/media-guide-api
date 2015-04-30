@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MediaGuide.Repository.Entities;
 
-namespace MediaGuide.Repository.Factories
+namespace MediaGuide.Repository
 {
     class ChannelGroupFactory
     {
