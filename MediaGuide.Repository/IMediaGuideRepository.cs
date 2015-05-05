@@ -15,11 +15,12 @@ namespace MediaGuide.Repository
         RepositoryActionResult<Entities.Channel> InsertChannel(Entities.Channel channel);
         RepositoryActionResult<Entities.Channel> UpdateChannel(Entities.Channel channel);
 
+        //********************TODO: MUST ADD ALL BELOW TO MEDIAGUIDEREPOSITORY.CS!!*********************//
         IQueryable<Entities.SharedChannelGroup> GetSharedChannelGroups();
         Entities.SharedChannelGroup GetSharedChannelGroup(int id);
         RepositoryActionResult<Entities.SharedChannelGroup> DeleteSharedChannelGroup(Entities.SharedChannelGroup sharedChannelGroup);
         RepositoryActionResult<Entities.SharedChannelGroup> InsertSharedChannelGroup(Entities.SharedChannelGroup sharedChannelGroup);
-        RepositoryActionResult<Entities.SharedChannelGroup> UpdateChannel(Entities.SharedChannelGroup sharedChannelGroup);
+        RepositoryActionResult<Entities.SharedChannelGroup> UpdateSharedChannelGroup(Entities.SharedChannelGroup sharedChannelGroup);
 
         IQueryable<Entities.MediaItem> GetMediaItems();
         Entities.MediaItem GetMediaItem(int id);

@@ -44,7 +44,7 @@ namespace MediaGuide.API.Controllers
                 return InternalServerError();
             }
         }
-
+        [HttpPost]
         public IHttpActionResult Post([FromBody] DTO.SharedChannelGroup sharedChannelGroup)
         {
             try
@@ -70,6 +70,36 @@ namespace MediaGuide.API.Controllers
             }
         }
 
-        //****did boths gets now do post put patch delete************then do other two controllers////
+        public IHttpActionResult Put([FromBody] DTO.SharedChannelGroup sharedChannelGroup)
+        {
+            try
+            {
+                if (sharedChannelGroup == null)
+                {
+                    return BadRequest();
+                }
+
+                var shrdChnlGrp = _sharedChannelGroupFactory.CreateSharedChannelGroup(sharedChannelGroup);
+                var result = _repository.UpdateSharedChannelGroup(shrdChnlGrp);
+                if (result.Status == RepositoryActionStatus.Updated)
+                {
+                    var updatedExpenseGroup = _sharedChannelGroupFactory.CreateSharedChannelGroup(result.Entity);
+
+                    return Ok(updatedExpenseGroup);
+                }
+                else if (result.Status == RepositoryActionStatus.NotFound)
+                {
+                    return NotFound();
+                }
+
+                return BadRequest();
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
+            }
+        }
+
+        //****did boths gets and post and put, do patch delete************then do other two controllers////
     }
 }
