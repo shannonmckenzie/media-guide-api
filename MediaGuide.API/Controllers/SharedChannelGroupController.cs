@@ -100,6 +100,44 @@ namespace MediaGuide.API.Controllers
             }
         }
 
-        //****did boths gets and post and put, do patch delete************then do other two controllers////
+        [HttpPatch]
+        public IHttpActionResult Patch(int id, [FromBody] JsonPatchDocument<DTO.SharedChannelGroup> sharedChannelGroupPatchDocument)
+        {
+            try
+            {
+                if (sharedChannelGroupPatchDocument == null)
+                {
+                    return BadRequest();
+                }
+
+                var sharedChannelGroup = _repository.GetSharedChannelGroup(id);
+                if (sharedChannelGroup == null)
+                {
+                    return NotFound();
+                }
+
+                // map
+                var shrdChnl = _sharedChannelGroupFactory.CreateSharedChannelGroup(sharedChannelGroup);
+
+                sharedChannelGroupPatchDocument.ApplyTo(shrdChnl);
+
+                var result = _repository.UpdateSharedChannelGroup(_sharedChannelGroupFactory.CreateSharedChannelGroup(shrdChnl));
+
+                if (result.Status == RepositoryActionStatus.Updated)
+                {
+                    // map to dto
+                    var patchedChannel = _sharedChannelGroupFactory.CreateSharedChannelGroup(result.Entity);
+                    return Ok(patchedChannel);
+                }
+
+                return BadRequest();
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
+            }
+
+        }
+        //****did boths gets and post and put and patch, do delete************then do other two controllers////
     }
 }
