@@ -18,7 +18,7 @@ namespace MediaGuide.Repository
         //********************TODO: MUST ADD ALL BELOW TO MEDIAGUIDEREPOSITORY.CS!!*********************//
         IQueryable<Entities.SharedChannelGroup> GetSharedChannelGroups();
         Entities.SharedChannelGroup GetSharedChannelGroup(int id);
-        RepositoryActionResult<Entities.SharedChannelGroup> DeleteSharedChannelGroup(Entities.SharedChannelGroup sharedChannelGroup);
+        RepositoryActionResult<Entities.SharedChannelGroup> DeleteSharedChannelGroup(int id);
         RepositoryActionResult<Entities.SharedChannelGroup> InsertSharedChannelGroup(Entities.SharedChannelGroup sharedChannelGroup);
         RepositoryActionResult<Entities.SharedChannelGroup> UpdateSharedChannelGroup(Entities.SharedChannelGroup sharedChannelGroup);
 

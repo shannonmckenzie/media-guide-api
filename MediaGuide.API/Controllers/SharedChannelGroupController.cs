@@ -138,6 +138,28 @@ namespace MediaGuide.API.Controllers
             }
 
         }
-        //****did boths gets and post and put and patch, do delete************then do other two controllers////
+
+        public IHttpActionResult Delete(int id)
+        {
+            try
+            {
+                var result = _repository.DeleteSharedChannelGroup(id);
+
+                if (result.Status == RepositoryActionStatus.Deleted)
+                {
+                    return StatusCode(HttpStatusCode.NoContent);
+                }
+                else if (result.Status == RepositoryActionStatus.NotFound)
+                {
+                    return NotFound();
+                }
+
+                return BadRequest();
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
+            }
+        }
     }
 }
