@@ -46,6 +46,7 @@
     <Compile Include="Entities\Channel.cs" />
     <Compile Include="Factories\ChannelGroupFactory.cs" />
     <Compile Include="Factories\MediaItemFactory.cs" />
+    <Compile Include="Factories\SharedChannelFactory.cs" />
     <Compile Include="IMediaGuideRepository.cs" />
     <Compile Include="MediaGuideRepository.cs" />
     <Compile Include="RepositoryActionResult.cs" />
