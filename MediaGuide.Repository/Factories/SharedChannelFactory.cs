@@ -5,28 +5,28 @@ using System.Text;
 using System.Threading.Tasks;
 using MediaGuide.Repository.Entities;
 
-namespace MediaGuide.Repository.Factories
+namespace MediaGuide.Repository
 {
-    class SharedChannelFactory
+     public class SharedChannelFactory
     {
-        public DTO.SharedChannelGroup CreateSharedChannelGroup(SharedChannelGroup sharedChannelGroup)
+        public DTO.SharedChannel CreateSharedChannel(SharedChannel sharedChannel)
         {
-            return new DTO.SharedChannelGroup()
+            return new DTO.SharedChannel()
             {
-                Id = sharedChannelGroup.Id,
-                UserId = sharedChannelGroup.UserId,
-                ChannelGroupId = sharedChannelGroup.ChannelGroupId
+                Id = sharedChannel.Id,
+                UserId = sharedChannel.UserId,
+                SharedChannelId = sharedChannel.SharedChannelId
             };
         }
 
-        public SharedChannelGroup CreateSharedChannelGroup(DTO.SharedChannelGroup sharedChannelGroup)
+        public SharedChannel CreateSharedChannel(DTO.SharedChannel sharedChannel)
         {
 
-            return new SharedChannelGroup()
+            return new SharedChannel()
             {
-                Id = sharedChannelGroup.Id,
-                UserId = sharedChannelGroup.UserId,
-                ChannelGroupId = sharedChannelGroup.ChannelGroupId
+                Id = sharedChannel.Id,
+                UserId = sharedChannel.UserId,
+                SharedChannelId = sharedChannel.SharedChannelId
             };
         }
     }

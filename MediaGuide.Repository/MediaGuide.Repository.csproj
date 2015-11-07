@@ -41,7 +41,7 @@
   <ItemGroup>
     <Compile Include="Entities\ChannelGroup.cs" />
     <Compile Include="Entities\MediaItem.cs" />
-    <Compile Include="Entities\SharedChannelGroup.cs" />
+    <Compile Include="Entities\SharedChannel.cs" />
     <Compile Include="Factories\ChannelFactory.cs" />
     <Compile Include="Entities\Channel.cs" />
     <Compile Include="Factories\ChannelGroupFactory.cs" />

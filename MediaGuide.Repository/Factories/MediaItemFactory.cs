@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using MediaGuide.Repository.Entities;
 
-namespace MediaGuide.Repository.Factories
+namespace MediaGuide.Repository
 {
-    class MediaItemFactory
+    public class MediaItemFactory
     {
         public DTO.MediaItem CreateMediaItem(MediaItem mediaItem)
         {
