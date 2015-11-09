@@ -23,12 +23,26 @@ namespace MediaGuide.API.Controllers
             return Ok(_repository.GetChannelGroups());
         }
 
-        public IHttpActionResult Get(int id){
-
+        public IHttpActionResult Get(int id)
+        {
+            try 
+	        {	        
+	        	var channelGroup = _repository.GetChannelGroup(id);
+                        if(channelGroup == null){
+                            return NotFound();
+                        }
+                        else{
+                            return Ok(_channelGroupFactory.CreateChannelGroup(channelGroup));
+                        }
+	        }
+	        catch (Exception)
+	        {
+	        	return InternalServerError();
+	        }
         }
 
         public IHttpActionResult post([FromBody] DTO.ChannelGroup channelGroup){
-
+            
         }
 
         public IHttpActionResult put([FromBody] DTO.ChannelGroup channelGroup){
