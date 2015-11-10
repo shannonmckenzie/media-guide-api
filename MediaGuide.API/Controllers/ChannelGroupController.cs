@@ -41,20 +41,119 @@ namespace MediaGuide.API.Controllers
 	        }
         }
 
-        public IHttpActionResult post([FromBody] DTO.ChannelGroup channelGroup){
-            
+        public IHttpActionResult post([FromBody] DTO.ChannelGroup channelGroup)
+        {
+            try 
+	        {	        
+	        	if(channelGroup == null)
+                {
+                    return BadRequest();
+                }
+
+                var chGroup = _channelGroupFactory.CreateChannelGroup(channelGroup);
+                var result = _repository.InsertChannel(chGroup);
+
+                if(result.Status == RepositoryActionStatus.Created)
+                {
+                    var newChannelGroup = _channelGroupFactory.CreateChannelGroup(result.Entity);
+                    return Created(Request.RequestUri + "/" + newChannelGroup.Id.ToString(),newChannelGroup);
+                }
+
+                return BadRequest();
+	        }
+	        catch (Exception)
+	        {
+	        	return InternalServerError();
+	        }
         }
 
-        public IHttpActionResult put([FromBody] DTO.ChannelGroup channelGroup){
+        public IHttpActionResult put([FromBody] DTO.ChannelGroup channelGroup)
+        {
+            try 
+	        {	        
+	        	if(channelGroup == null)
+                {
+                    return BadRequest();
+                }
 
+                var chGroup = _channelGroupFactory.CreateChannelGroup(channelGroup);
+                var result = _repository.UpdateChannelGroup(chGroup);
+
+                if(result.Status == RepositoryActionStatus.Updated)
+                {
+                    var updatedChannelGroup = _channelGroupFactory.CreateChannelGroup(result.Entity);
+
+                    return Ok(updatedChannelGroup);
+                }
+                else if(result.Status == RepositoryActionStatus.NotFound)
+                {
+                    return NotFound();
+                }
+                return BadRequest();
+	        }
+	        catch (Exception)
+	        {
+	        	return InternalServerError();
+	        }
         }
 
-        public IHttpActionResult patch(int id,[FromBody] JsonPatchDocument<DTO.ChannelGroup> channelGroup){
+        public IHttpActionResult patch(int id,[FromBody] JsonPatchDocument<DTO.ChannelGroup> channelGroupPatchDocument)
+        {
+            try
+            {
+                if (channelGroupPatchDocument == null)
+                {
+                    return BadRequest();
+                }
 
+                var channelGroup = _repository.GetChannelGroup(id);
+                if (channelGroup == null)
+                {
+                    return NotFound();
+                }
+
+                // map
+                var chGroup = _channelGroupFactory.CreateChannelGroup(channelGroup);
+
+                channelGroupPatchDocument.ApplyTo(chGroup);
+
+                var result = _repository.UpdateChannelGroup(_channelGroupFactory.CreateChannelGroup(chGroup));
+
+                if (result.Status == RepositoryActionStatus.Updated)
+                {
+                    // map to dto
+                    var patchedChannelGroup = _channelGroupFactory.CreateChannelGroup(result.Entity);
+                    return Ok(patchedChannelGroup);
+                }
+
+                return BadRequest();
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
+            }
         }
 
-        public IHttpActionResult delete(int id){
-
+        public IHttpActionResult delete(int id)
+        {
+            try 
+	        {	        
+	            var result = _repository.DeleteChannelGroup(id);
+	
+                if(result.Status == RepositoryActionStatus.Deleted)
+                {
+                    return StatusCode(HttpStatusCode.NoContent);
+                }
+                else if(result.Status == RepositoryActionStatus.NotFound)
+                {
+                    return NotFound();
+                }
+                return BadRequest();
+	        }
+	        catch (Exception)
+	        {
+	        	return InternalServerError();
+	        }
         }
     }
 }
