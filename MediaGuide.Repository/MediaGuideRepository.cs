@@ -139,6 +139,7 @@ namespace MediaGuide.Repository
 
             return channels;
         }
+
         public IQueryable<ChannelGroup> GetChannelGroups()
         {
             return BuildChannelGroupsList().AsQueryable();
@@ -180,6 +181,7 @@ namespace MediaGuide.Repository
                 return new RepositoryActionResult<ChanelGroup>(null, RepositoryActionStatus.Error, ex);
             }
         }
+
         public RepositoryActionResult<ChannelGroup> DeleteChannelGroup(int id)
         {
             try
@@ -200,6 +202,7 @@ namespace MediaGuide.Repository
                 return new RepositoryActionResult<ChannelGroup>(null, RepositoryActionStatus.Error, ex)
             }
         }
+
         private List<ChannelGroup> BuildChannelGroupsList()
         {
             var channelGroups = new List<ChannelGroup>
@@ -232,5 +235,32 @@ namespace MediaGuide.Repository
             }
             return channelGroups;
         } 
+
+        public IQueryable<MediaItem> GetMediaItems()
+        {
+            return BuildMediaItemsList().AsQueryable();
+        }
+
+        public MediaItem GetMediaItem(int id)
+        {
+            return BuildMediaItemsList().Where(p => p.Id == id).FirstOrDefault();
+        }
+
+        private List<MediaItem> BuildMediaItemsList()
+        {
+            var mediaItems = new List<MediaItem>
+            {
+                new MediaItem()
+                {
+                    Id = 1,
+                    Name = "Media Item 1"
+                },
+                new MediaItem()
+                {
+                    Id = 2,
+                    Name = "Media Item 2"
+                }
+            }
+        }
     } 
 }
