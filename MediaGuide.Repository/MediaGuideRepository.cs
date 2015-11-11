@@ -139,5 +139,98 @@ namespace MediaGuide.Repository
 
             return channels;
         }
-    }
+        public IQueryable<ChannelGroup> GetChannelGroups()
+        {
+            return BuildChannelGroupsList().AsQueryable();
+        }
+
+        public ChannelGroup GetChannelGroup(int id)
+        {
+            return BuildChannelGroupsList().Where(p => p.Id == id).FirstOrDefault();
+        }
+
+        public RepositoryActionResult<ChannelGroup> UpdateChannelGroup(ChannelGroup channelGroup)
+        {
+            try
+            {
+                var channelGroupList = BuildChannelGroupsList();
+                var channelGroupToUpdate = channelGroupList.Where(p => p.Id = channelGroup.Id).FirstOrDefault();
+                channelGroupList[channelGroupList.IndexOf(channelGroupToUpdate)] = channelGroup;
+
+                return new RepositoryActionResult<ChannelGroup>(channelGroup, RepositoryActionStatus.Updated);
+            }
+            catch(Exception ex)
+            {
+                return new RepositoryActionResult<ChannelGroup>(null, RepositoryActionStatus.Error, ex);
+            }
+        }
+
+        public RepositoryActionResult<ChannelGroup> InsertChannelGroup(ChannelGroup channelGroup)
+        {
+            try
+            {
+                var channelGroupsList = BuildChannelGroupsList();
+                channelGroup.Id = channelGroupsList.Max(p => p.Id) + 1;
+                channelGroupsList.Add(channelGroup);
+
+                return new RepositoryActionResult<ChannelGroup>(channelGroup, RepositoryActionStatus.Created);
+            }
+            catch(Exception ex)
+            {
+                return new RepositoryActionResult<ChanelGroup>(null, RepositoryActionStatus.Error, ex);
+            }
+        }
+        public RepositoryActionResult<ChannelGroup> DeleteChannelGroup(int id)
+        {
+            try
+            {
+                var channelGroupList = BuildChannelGroupsList();
+                var channelGroupToRemove = channelGroupList.Where(p => p.Id == id).FirstOrDefault();
+
+                if (channelGroupToRemove == null)
+                {
+                    return new RepositoryActionResult<ChannelGroup>(null, RepositoryActionStatus.NotFound);
+                }
+
+                BuildChannelGroupsList().Remove(channelGroupToRemove);
+                return new RepositoryActionResult<ChannelGroup>(null, RepositoryActionStatus.Deleted);
+            }
+            catch(Exception ex)
+            {
+                return new RepositoryActionResult<ChannelGroup>(null, RepositoryActionStatus.Error, ex)
+            }
+        }
+        private List<ChannelGroup> BuildChannelGroupsList()
+        {
+            var channelGroups = new List<ChannelGroup>
+            {
+                new ChannelGroup()
+                {
+                    Id = 1,
+                    Name = "Sports"
+                },
+                new ChannelGroup()
+                {
+                    Id = 2,
+                    Name = "Family"
+                },
+                new ChannelGroup()
+                {
+                    Id = 3,
+                    Name = "Carton"
+                },
+                new ChannelGroup()
+                {
+                    Id = 4,
+                    Name = "Reality TV"
+                },
+                new ChannelGroup()
+                {
+                    Id = 5,
+                    Name = "Outdoors"
+                }
+            }
+            return channelGroups;
+        } 
+    } 
 }
