@@ -236,6 +236,43 @@ namespace MediaGuide.Repository
             return channelGroups;
         } 
 
+        public RepositoryActionResult<MediaItem> DeleteMediaItem(int id)
+        {
+            try
+            {
+                var mediaItemList = BuildMediaItemsList();
+                var mediaItemToRemove = mediaItemList.Where(p => p.Id == id).FirstOrDefault();
+
+                if(mediaItemToRemove == null)
+                {
+                    return new RepositoryActionResult<MediaItem>(null, RepositoryActionStatus.NotFound);
+                }
+
+                BuildMediaItemsList().Remove(mediaItemToRemove);
+                return new RepositoryActionResult<MediaItem>(null, RepositoryActionStatus.Deleted);
+            }
+            catch(Exception ex)
+            {
+                return new RepositoryActionResult<MediaItem>(null, RepositoryActionStatus.Error, ex);
+            }
+        }
+
+        public RepositoryActionResult<MediaItem> InsertMediaItem(MediaItem mediaItem)
+        {
+            try
+            {
+                var mediaItemList = BuildMediaItemsList();
+                mediaItem.Id = mediaItemList.Max(p => p.Id) + 1;
+                mediaItemList.Add(mediaItem);
+
+                return new RepositoryActionResult<MediaItem>(mediaItem, RepositoryActionStatus.Created);
+            }
+            catch(Exception ex)
+            {
+                return new RepositoryActionResult<MediaItem>(null, RepositoryActionStatus.Error, ex);
+            }
+        }
+
         public IQueryable<MediaItem> GetMediaItems()
         {
             return BuildMediaItemsList().AsQueryable();
@@ -244,6 +281,22 @@ namespace MediaGuide.Repository
         public MediaItem GetMediaItem(int id)
         {
             return BuildMediaItemsList().Where(p => p.Id == id).FirstOrDefault();
+        }
+
+        public RepositoryActionResult<MediaItem> UpdateMediaItem(MediaItem mediaItem)
+        {
+            try
+            {
+                var mediaItemList = BuildMediaItemsList();
+                var mediaItemToUpdate = mediaItemList.Where(p => p.Id == mediaItem.Id).FirstOrDefault();
+                mediaItemList[mediaItemList.IndexOf(mediaItemToUpdate)] = mediaItem;
+
+                return new RepositoryActionResult<MediaItem>(mediaItem, RepositoryActionStatus.Updated);
+            }
+            catch(Exception ex)
+            {
+                return new RepositoryActionResult<MediaItem>(null, RepositoryActionStatus.Error, ex);
+            }
         }
 
         private List<MediaItem> BuildMediaItemsList()
