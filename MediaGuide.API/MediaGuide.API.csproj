@@ -208,6 +208,7 @@
     <Compile Include="Controllers\ChannelController.cs" />
     <Compile Include="Controllers\ChannelGroupController.cs" />
     <Compile Include="Controllers\MediaItemController.cs" />
+    <Compile Include="Controllers\SharedChannelController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

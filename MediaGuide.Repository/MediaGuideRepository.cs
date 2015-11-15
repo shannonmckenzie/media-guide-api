@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -139,5 +139,258 @@ namespace MediaGuide.Repository
 
             return channels;
         }
-    }
+
+        public IQueryable<ChannelGroup> GetChannelGroups()
+        {
+            return BuildChannelGroupsList().AsQueryable();
+        }
+
+        public ChannelGroup GetChannelGroup(int id)
+        {
+            return BuildChannelGroupsList().Where(p => p.Id == id).FirstOrDefault();
+        }
+
+        public RepositoryActionResult<ChannelGroup> UpdateChannelGroup(ChannelGroup channelGroup)
+        {
+            try
+            {
+                var channelGroupList = BuildChannelGroupsList();
+                var channelGroupToUpdate = channelGroupList.Where(p => p.Id == channelGroup.Id).FirstOrDefault();
+                channelGroupList[channelGroupList.IndexOf(channelGroupToUpdate)] = channelGroup;
+
+                return new RepositoryActionResult<ChannelGroup>(channelGroup, RepositoryActionStatus.Updated);
+            }
+            catch(Exception ex)
+            {
+                return new RepositoryActionResult<ChannelGroup>(null, RepositoryActionStatus.Error, ex);
+            }
+        }
+
+        public RepositoryActionResult<ChannelGroup> InsertChannelGroup(ChannelGroup channelGroup)
+        {
+            try
+            {
+                var channelGroupsList = BuildChannelGroupsList();
+                channelGroup.Id = channelGroupsList.Max(p => p.Id) + 1;
+                channelGroupsList.Add(channelGroup);
+
+                return new RepositoryActionResult<ChannelGroup>(channelGroup, RepositoryActionStatus.Created);
+            }
+            catch(Exception ex)
+            {
+                return new RepositoryActionResult<ChannelGroup>(null, RepositoryActionStatus.Error, ex);
+            }
+        }
+
+        public RepositoryActionResult<ChannelGroup> DeleteChannelGroup(int id)
+        {
+            try
+            {
+                var channelGroupList = BuildChannelGroupsList();
+                var channelGroupToRemove = channelGroupList.Where(p => p.Id == id).FirstOrDefault();
+
+                if (channelGroupToRemove == null)
+                {
+                    return new RepositoryActionResult<ChannelGroup>(null, RepositoryActionStatus.NotFound);
+                }
+
+                BuildChannelGroupsList().Remove(channelGroupToRemove);
+                return new RepositoryActionResult<ChannelGroup>(null, RepositoryActionStatus.Deleted);
+            }
+            catch(Exception ex)
+            {
+                return new RepositoryActionResult<ChannelGroup>(null, RepositoryActionStatus.Error, ex);
+            }
+        }
+
+        private List<ChannelGroup> BuildChannelGroupsList()
+        {
+            var channelGroups = new List<ChannelGroup>
+            {
+                new ChannelGroup()
+                {
+                    Id = 1,
+                    Name = "Sports"
+                },
+                new ChannelGroup()
+                {
+                    Id = 2,
+                    Name = "Family"
+                },
+                new ChannelGroup()
+                {
+                    Id = 3,
+                    Name = "Carton"
+                },
+                new ChannelGroup()
+                {
+                    Id = 4,
+                    Name = "Reality TV"
+                },
+                new ChannelGroup()
+                {
+                    Id = 5,
+                    Name = "Outdoors"
+                }
+            };
+            return channelGroups;
+        } 
+
+        public RepositoryActionResult<MediaItem> DeleteMediaItem(int id)
+        {
+            try
+            {
+                var mediaItemList = BuildMediaItemsList();
+                var mediaItemToRemove = mediaItemList.Where(p => p.Id == id).FirstOrDefault();
+
+                if(mediaItemToRemove == null)
+                {
+                    return new RepositoryActionResult<MediaItem>(null, RepositoryActionStatus.NotFound);
+                }
+
+                BuildMediaItemsList().Remove(mediaItemToRemove);
+                return new RepositoryActionResult<MediaItem>(null, RepositoryActionStatus.Deleted);
+            }
+            catch(Exception ex)
+            {
+                return new RepositoryActionResult<MediaItem>(null, RepositoryActionStatus.Error, ex);
+            }
+        }
+
+        public RepositoryActionResult<MediaItem> InsertMediaItem(MediaItem mediaItem)
+        {
+            try
+            {
+                var mediaItemList = BuildMediaItemsList();
+                mediaItem.Id = mediaItemList.Max(p => p.Id) + 1;
+                mediaItemList.Add(mediaItem);
+
+                return new RepositoryActionResult<MediaItem>(mediaItem, RepositoryActionStatus.Created);
+            }
+            catch(Exception ex)
+            {
+                return new RepositoryActionResult<MediaItem>(null, RepositoryActionStatus.Error, ex);
+            }
+        }
+
+        public IQueryable<MediaItem> GetMediaItems()
+        {
+            return BuildMediaItemsList().AsQueryable();
+        }
+
+        public MediaItem GetMediaItem(int id)
+        {
+            return BuildMediaItemsList().Where(p => p.Id == id).FirstOrDefault();
+        }
+
+        public RepositoryActionResult<MediaItem> UpdateMediaItem(MediaItem mediaItem)
+        {
+            try
+            {
+                var mediaItemList = BuildMediaItemsList();
+                var mediaItemToUpdate = mediaItemList.Where(p => p.Id == mediaItem.Id).FirstOrDefault();
+                mediaItemList[mediaItemList.IndexOf(mediaItemToUpdate)] = mediaItem;
+
+                return new RepositoryActionResult<MediaItem>(mediaItem, RepositoryActionStatus.Updated);
+            }
+            catch(Exception ex)
+            {
+                return new RepositoryActionResult<MediaItem>(null, RepositoryActionStatus.Error, ex);
+            }
+        }
+
+        private List<MediaItem> BuildMediaItemsList()
+        {
+            var mediaItems = new List<MediaItem>
+            {
+                new MediaItem()
+                {
+                    Id = 1,
+                    Name = "Media Item 1"
+                },
+                new MediaItem()
+                {
+                    Id = 2,
+                    Name = "Media Item 2"
+                }
+            };
+            return mediaItems;
+        }
+
+        public RepositoryActionResult<SharedChannel> UpdateSharedChannel(SharedChannel sharedChannel)
+        {
+            try
+            {
+                var sharedChannelList = BuildSharedChannelsList();
+                var sharedChannelToUpdate = sharedChannelList.Where(p => p.Id == sharedChannel.Id).FirstOrDefault();
+                sharedChannelList[sharedChannelList.IndexOf(sharedChannelToUpdate)] = sharedChannel;
+
+                return new RepositoryActionResult<SharedChannel>(sharedChannel, RepositoryActionStatus.Updated);
+            }
+            catch(Exception ex)
+            {
+                return new RepositoryActionResult<SharedChannel>(null, RepositoryActionStatus.Error, ex);
+            }
+        }
+
+        public SharedChannel GetSharedChannel(int id)
+        {
+            return BuildSharedChannelsList().Where(p => p.Id == id).FirstOrDefault();
+        }
+
+        public RepositoryActionResult<SharedChannel> DeleteSharedChannel(int id)
+        {
+            try
+            {
+                var sharedChannelList = BuildSharedChannelsList();
+                var sharedChannelToRemove = sharedChannelList.Where(p => p.Id == id).FirstOrDefault();
+
+                if(sharedChannelToRemove == null)
+                {
+                    return new RepositoryActionResult<SharedChannel>(null, RepositoryActionStatus.NotFound);
+                }
+                BuildSharedChannelsList().Remove(sharedChannelToRemove);
+                return new RepositoryActionResult<SharedChannel>(null, RepositoryActionStatus.Deleted);
+            }
+            catch(Exception ex)
+            {
+                return new RepositoryActionResult<SharedChannel>(null, RepositoryActionStatus.Error, ex);
+            }
+        }
+
+        public RepositoryActionResult<SharedChannel> InsertSharedChannel(SharedChannel sharedChannel)
+        {
+            try
+            {
+                var sharedChannelList = BuildSharedChannelsList();
+                sharedChannel.Id = sharedChannelList.Max(p => p.Id) + 1;
+                sharedChannelList.Add(sharedChannel);
+
+                return new RepositoryActionResult<SharedChannel>(sharedChannel, RepositoryActionStatus.Created);
+            }
+            catch(Exception ex)
+            {
+                return new RepositoryActionResult<SharedChannel>(null, RepositoryActionStatus.Error, ex);
+            }
+        }
+
+        public IQueryable<SharedChannel> GetSharedChannels()
+        {
+            return BuildSharedChannelsList().AsQueryable();
+        }
+
+        private List<SharedChannel> BuildSharedChannelsList()
+        {
+            var sharedChannels = new List<SharedChannel> 
+            {
+                new SharedChannel()
+                {
+                    Id = 1,
+                    Name = "shared channel 1"
+                }
+            };
+
+            return sharedChannels;
+        }
+    } 
 }
