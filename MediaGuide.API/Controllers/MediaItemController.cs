@@ -13,9 +13,9 @@ namespace MediaGuide.API.Controllers
     public class MediaItemController: ApiController
     {
         IMediaGuideRepository _repository;
-        MediaItemFactory mediaItemFactory = new MediaItemFactory();
+        MediaItemFactory _mediaItemFactory = new MediaItemFactory();
 
-        public channelGroupController()
+        public MediaItemController()
         {
             _repository = new MediaGuideRepository();
         }
@@ -51,7 +51,7 @@ namespace MediaGuide.API.Controllers
                 }
 
                 var mdItm = _mediaItemFactory.CreateMediaItem(mediaItem);
-                var result = _repository.InsertMediaItem(mdItem);
+                var result = _repository.InsertMediaItem(mdItm);
 
                 if(result.Status == RepositoryActionStatus.Created)
                 {
@@ -79,13 +79,13 @@ namespace MediaGuide.API.Controllers
                 var mdItm = _mediaItemFactory.CreateMediaItem(mediaItem);
                 var result = _repository.UpdateMediaItem(mdItm);
 
-                if(result.Status = RepositoryActionStatus.Updated)
+                if(result.Status == RepositoryActionStatus.Updated)
                 {
                     var updatedMediaItem = _mediaItemFactory.CreateMediaItem(result.Entity);
 
                     return Ok(updatedMediaItem);
                 }
-                else if(result.Status = RepositoryActionStatus.NotFound)
+                else if(result.Status == RepositoryActionStatus.NotFound)
                 {
                     return NotFound();
                 }
@@ -117,7 +117,7 @@ namespace MediaGuide.API.Controllers
 
                 mediaItemPatchDocument.ApplyTo(mdItem);
 
-                var result = _repository.UpdateMediaItem(_mediaItemFactory.CreateMediaItem(mdItm));
+                var result = _repository.UpdateMediaItem(_mediaItemFactory.CreateMediaItem(mdItem));
 
                 if (result.Status == RepositoryActionStatus.Updated)
                 {
@@ -144,7 +144,7 @@ namespace MediaGuide.API.Controllers
                 {
                     return StatusCode(HttpStatusCode.NoContent);
                 }
-                else if(result.Status = RepositoryActionStatus.NotFound)
+                else if(result.Status == RepositoryActionStatus.NotFound)
                 {
                     return NotFound();
                 }

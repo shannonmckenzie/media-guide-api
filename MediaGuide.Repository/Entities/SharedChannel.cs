@@ -10,6 +10,6 @@ namespace MediaGuide.Repository.Entities
     {
         public Int32 Id { get; set; }
         public String UserId { get; set; }
-        public String SharedChannelId { get; set; }
+        public String Name { get; set; }
     }
 }

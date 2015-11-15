@@ -155,7 +155,7 @@ namespace MediaGuide.Repository
             try
             {
                 var channelGroupList = BuildChannelGroupsList();
-                var channelGroupToUpdate = channelGroupList.Where(p => p.Id = channelGroup.Id).FirstOrDefault();
+                var channelGroupToUpdate = channelGroupList.Where(p => p.Id == channelGroup.Id).FirstOrDefault();
                 channelGroupList[channelGroupList.IndexOf(channelGroupToUpdate)] = channelGroup;
 
                 return new RepositoryActionResult<ChannelGroup>(channelGroup, RepositoryActionStatus.Updated);
@@ -178,7 +178,7 @@ namespace MediaGuide.Repository
             }
             catch(Exception ex)
             {
-                return new RepositoryActionResult<ChanelGroup>(null, RepositoryActionStatus.Error, ex);
+                return new RepositoryActionResult<ChannelGroup>(null, RepositoryActionStatus.Error, ex);
             }
         }
 
@@ -199,7 +199,7 @@ namespace MediaGuide.Repository
             }
             catch(Exception ex)
             {
-                return new RepositoryActionResult<ChannelGroup>(null, RepositoryActionStatus.Error, ex)
+                return new RepositoryActionResult<ChannelGroup>(null, RepositoryActionStatus.Error, ex);
             }
         }
 
@@ -232,7 +232,7 @@ namespace MediaGuide.Repository
                     Id = 5,
                     Name = "Outdoors"
                 }
-            }
+            };
             return channelGroups;
         } 
 
@@ -313,7 +313,84 @@ namespace MediaGuide.Repository
                     Id = 2,
                     Name = "Media Item 2"
                 }
+            };
+            return mediaItems;
+        }
+
+        public RepositoryActionResult<SharedChannel> UpdateSharedChannel(SharedChannel sharedChannel)
+        {
+            try
+            {
+                var sharedChannelList = BuildSharedChannelsList();
+                var sharedChannelToUpdate = sharedChannelList.Where(p => p.Id == sharedChannel.Id).FirstOrDefault();
+                sharedChannelList[sharedChannelList.IndexOf(sharedChannelToUpdate)] = sharedChannel;
+
+                return new RepositoryActionResult<SharedChannel>(sharedChannel, RepositoryActionStatus.Updated);
             }
+            catch(Exception ex)
+            {
+                return new RepositoryActionResult<SharedChannel>(null, RepositoryActionStatus.Error, ex);
+            }
+        }
+
+        public SharedChannel GetSharedChannel(int id)
+        {
+            return BuildSharedChannelsList().Where(p => p.Id == id).FirstOrDefault();
+        }
+
+        public RepositoryActionResult<SharedChannel> DeleteSharedChannel(int id)
+        {
+            try
+            {
+                var sharedChannelList = BuildSharedChannelsList();
+                var sharedChannelToRemove = sharedChannelList.Where(p => p.Id == id).FirstOrDefault();
+
+                if(sharedChannelToRemove == null)
+                {
+                    return new RepositoryActionResult<SharedChannel>(null, RepositoryActionStatus.NotFound);
+                }
+                BuildSharedChannelsList().Remove(sharedChannelToRemove);
+                return new RepositoryActionResult<SharedChannel>(null, RepositoryActionStatus.Deleted);
+            }
+            catch(Exception ex)
+            {
+                return new RepositoryActionResult<SharedChannel>(null, RepositoryActionStatus.Error, ex);
+            }
+        }
+
+        public RepositoryActionResult<SharedChannel> InsertSharedChannel(SharedChannel sharedChannel)
+        {
+            try
+            {
+                var sharedChannelList = BuildSharedChannelsList();
+                sharedChannel.Id = sharedChannelList.Max(p => p.Id) + 1;
+                sharedChannelList.Add(sharedChannel);
+
+                return new RepositoryActionResult<SharedChannel>(sharedChannel, RepositoryActionStatus.Created);
+            }
+            catch(Exception ex)
+            {
+                return new RepositoryActionResult<SharedChannel>(null, RepositoryActionStatus.Error, ex);
+            }
+        }
+
+        public IQueryable<SharedChannel> GetSharedChannels()
+        {
+            return BuildSharedChannelsList().AsQueryable();
+        }
+
+        private List<SharedChannel> BuildSharedChannelsList()
+        {
+            var sharedChannels = new List<SharedChannel> 
+            {
+                new SharedChannel()
+                {
+                    Id = 1,
+                    Name = "shared channel 1"
+                }
+            };
+
+            return sharedChannels;
         }
     } 
 }

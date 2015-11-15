@@ -33,7 +33,7 @@ namespace MediaGuide.API.Controllers
                 }
                 else
                 {
-                    return Ok(_sharedChannelFactory.CreateSharedChannelGroup(sharedChannel));
+                    return Ok(_sharedChannelFactory.CreateSharedChannel(sharedChannel));
                 }
             }
             catch (Exception)
@@ -47,7 +47,7 @@ namespace MediaGuide.API.Controllers
             {
                 if (sharedChannel == null)
                 {
-                    BadRequest();
+                   return BadRequest();
                 }
 
                 var sc = _sharedChannelFactory.CreateSharedChannel(sharedChannel);
@@ -63,7 +63,7 @@ namespace MediaGuide.API.Controllers
             }
             catch (Exception)
             {
-                InternalServerError();
+                return InternalServerError();
             }
         }
 
@@ -117,7 +117,7 @@ namespace MediaGuide.API.Controllers
                 if (result.Status == RepositoryActionStatus.Updated)
                 {
                     var patchedSharedChannel = _sharedChannelFactory.CreateSharedChannel(result.Entity);
-                    return Ok(patchedChannel);
+                    return Ok(patchedSharedChannel);
                 }
                 return BadRequest();
             }
@@ -144,8 +144,7 @@ namespace MediaGuide.API.Controllers
             }
             catch (Exception)
             {
-                
-                return InternalServerError;
+                return InternalServerError();
             }
         }
     }

@@ -15,7 +15,7 @@ namespace MediaGuide.Repository
             {
                 Id = sharedChannel.Id,
                 UserId = sharedChannel.UserId,
-                SharedChannelId = sharedChannel.SharedChannelId
+                SharedChannelId = sharedChannel.Name
             };
         }
 
@@ -26,7 +26,7 @@ namespace MediaGuide.Repository
             {
                 Id = sharedChannel.Id,
                 UserId = sharedChannel.UserId,
-                SharedChannelId = sharedChannel.SharedChannelId
+                Name = sharedChannel.SharedChannelId
             };
         }
     }

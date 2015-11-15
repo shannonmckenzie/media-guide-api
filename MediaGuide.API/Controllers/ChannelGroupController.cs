@@ -15,7 +15,7 @@ namespace MediaGuide.API.Controllers
         IMediaGuideRepository _repository;
         ChannelGroupFactory _channelGroupFactory = new ChannelGroupFactory();
 
-        public channelGroupController()
+        public void channelGroupController()
         {
             _repository = new MediaGuideRepository();
         }
@@ -51,7 +51,7 @@ namespace MediaGuide.API.Controllers
                 }
 
                 var chGroup = _channelGroupFactory.CreateChannelGroup(channelGroup);
-                var result = _repository.InsertChannel(chGroup);
+                var result = _repository.InsertChannelGroup(chGroup);
 
                 if(result.Status == RepositoryActionStatus.Created)
                 {
