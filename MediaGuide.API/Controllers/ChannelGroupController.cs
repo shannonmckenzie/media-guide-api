@@ -15,7 +15,7 @@ namespace MediaGuide.API.Controllers
         IMediaGuideRepository _repository;
         ChannelGroupFactory _channelGroupFactory = new ChannelGroupFactory();
 
-        public void channelGroupController()
+        public ChannelGroupController()
         {
             _repository = new MediaGuideRepository();
         }
